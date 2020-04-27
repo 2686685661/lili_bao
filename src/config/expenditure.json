@@ -1,0 +1,166 @@
+[
+    {
+        "detailedType": 1,
+        "name": "餐饮",
+        "className": "fa fa-share-square-o"
+    },
+    {
+        "detailedType": 2,
+        "name": "购物",
+        "className": "fa fa-share-square-o"
+    },
+    {
+        "detailedType": 3,
+        "name": "日用",
+        "className": "fa fa-share-square-o"
+    },
+    {
+        "detailedType": 4,
+        "name": "交通",
+        "className": "fa fa-share-square-o"
+    },
+    {
+        "detailedType": 5,
+        "name": "蔬菜",
+        "className": "fa fa-share-square-o"
+    },
+    {
+        "detailedType": 6,
+        "name": "水果",
+        "className": "fa fa-share-square-o"
+    },
+    {
+        "detailedType": 7,
+        "name": "零食",
+        "className": "fa fa-share-square-o"
+    },
+    {
+        "detailedType": 8,
+        "name": "运动",
+        "className": "fa fa-share-square-o"
+    },
+    {
+        "detailedType": 9,
+        "name": "娱乐",
+        "className": "fa fa-share-square-o"
+    },
+    {
+        "detailedType": 10,
+        "name": "通讯",
+        "className": "fa fa-share-square-o"
+    },
+    {
+        "detailedType": 11,
+        "name": "服饰",
+        "className": "fa fa-share-square-o"
+    },
+    {
+        "detailedType": 12,
+        "name": "美容",
+        "className": "fa fa-share-square-o"
+    },
+    {
+        "detailedType": 13,
+        "name": "住房",
+        "className": "fa fa-share-square-o"
+    },
+    {
+        "detailedType": 14,
+        "name": "居家",
+        "className": "fa fa-share-square-o"
+    },
+    {
+        "detailedType": 15,
+        "name": "孩子",
+        "className": "fa fa-share-square-o"
+    },
+    {
+        "detailedType": 16,
+        "name": "长辈",
+        "className": "fa fa-share-square-o"
+    },
+    {
+        "detailedType": 17,
+        "name": "社交",
+        "className": "fa fa-share-square-o"
+    },
+    {
+        "detailedType": 18,
+        "name": "旅行",
+        "className": "fa fa-share-square-o"
+    },
+    {
+        "detailedType": 19,
+        "name": "烟酒",
+        "className": "fa fa-share-square-o"
+    },
+    {
+        "detailedType": 20,
+        "name": "数码",
+        "className": "fa fa-share-square-o"
+    },
+    {
+        "detailedType": 21,
+        "name": "汽车",
+        "className": "fa fa-share-square-o"
+    },
+    {
+        "detailedType": 22,
+        "name": "医疗",
+        "className": "fa fa-share-square-o"
+    },
+    {
+        "detailedType": 23,
+        "name": "书籍",
+        "className": "fa fa-share-square-o"
+    },
+    {
+        "detailedType": 24,
+        "name": "学习",
+        "className": "fa fa-share-square-o"
+    },
+    {
+        "detailedType": 25,
+        "name": "宠物",
+        "className": "fa fa-share-square-o"
+    },
+    {
+        "detailedType": 26,
+        "name": "礼金",
+        "className": "fa fa-share-square-o"
+    },
+    {
+        "detailedType": 27,
+        "name": "礼物",
+        "className": "fa fa-share-square-o"
+    },        {
+        "detailedType": 28,
+        "name": "办公",
+        "className": "fa fa-share-square-o"
+    },
+    {
+        "detailedType": 29,
+        "name": "维修",
+        "className": "fa fa-share-square-o"
+    },
+    {
+        "detailedType": 30,
+        "name": "捐赠",
+        "className": "fa fa-share-square-o"
+    },
+    {
+        "detailedType": 31,
+        "name": "彩票",
+        "className": "fa fa-share-square-o"
+    },
+    {
+        "detailedType": 32,
+        "name": "亲友",
+        "className": "fa fa-share-square-o"
+    },
+    {
+        "detailedType": 33,
+        "name": "快递",
+        "className": "fa fa-share-square-o"
+    }
+]

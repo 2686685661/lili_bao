@@ -2,22 +2,30 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+import Vuex from 'vuex'
 import router from './router'
+import store from './store'
+
+import 'normalize.css'
 
 
-// 引入全部组件
+Vue.use(Vuex)
+
+//import vue-cookie
+// import VueCookies from 'vue-cookies'
+// Vue.use(VueCookies)
+
+// 引入mint全部组件
 import 'mint-ui/lib/style.css'
 import Mint from 'mint-ui';
 Vue.use(Mint);
 
+// 引入oview
+//https://github.com/MrGaoGang/oview
+import oView from "oview";
+Vue.use(oView);
 
-//引入&设置axios
-import axios from 'axios'
-window.axios = axios
-window.axios.defaults.withCredentials = true
-window.axios.defaults.xsrfCookieName = null
-window.axios.defaults.xsrfHeaderName = null
-axios.defaults.baseURL = 'http://localhost:8080';
+
 
 import Mock from 'mockjs'
 window.Mock = Mock
@@ -37,9 +45,16 @@ Object.keys(filters).forEach(key => {
 })
 
 //挂靠公共方法
-import {methods} from './helpers/methods.js'
+import {methods} from './helpers/methods'
 Object.keys(methods).forEach((key)=>{
   Vue.prototype[key]=methods[key];
+})
+
+
+//引入axios
+import service from './config/http-service'
+Object.keys(service).forEach((key)=>{
+  Vue.prototype[key]=service[key];
 })
 
 
@@ -49,6 +64,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

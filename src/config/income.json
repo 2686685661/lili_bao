@@ -1,0 +1,27 @@
+[
+    {
+        "detailedType": 1,
+        "name": "工资",
+        "className": "fa fa-share-square-o"
+    },
+    {
+        "detailedType": 2,
+        "name": "兼职",
+        "className": "fa fa-share-square-o"
+    },
+    {
+        "detailedType": 3,
+        "name": "理财",
+        "className": "fa fa-share-square-o"
+    },
+    {
+        "detailedType": 4,
+        "name": "礼金",
+        "className": "fa fa-share-square-o"
+    },
+    {
+        "detailedType": 5,
+        "name": "其他",
+        "className": "fa fa-share-square-o"
+    }
+]
