@@ -36,7 +36,7 @@ export default {
             if ( this.name == "" || this.password == "") {
                 Toast({
                     message: '请输入手机号和密码',
-                    position: 'top',
+                    position: 'middle',
                     duration: 3000,
                 });
                 return;
@@ -62,7 +62,7 @@ export default {
                 } else {
                     Toast({
                         message: res.msg,
-                        position: 'top',
+                        position: 'middle',
                         duration: 3000,
                     });
                 }

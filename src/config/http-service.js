@@ -1,4 +1,5 @@
 import axios from 'axios';
+import router from '@/router'
 import config from './config.js'
 import {methods} from '../helpers/methods'
 window.axios = axios
@@ -27,6 +28,15 @@ axios.interceptors.request.use(
     let arr = url.split("/")
     if (arr[0] == 'api') {
       let token = methods.getToken()
+      if (token == "" || token == null || token == undefined || token == "undefined") {
+          Toast({
+            message: "请先登陆哦～",
+            position: 'middle',
+            duration: 3000,
+          });
+          router.push({path: "/login"})
+          return;
+      }
       config.headers['Authorization'] = token
     }
     
@@ -37,8 +47,7 @@ axios.interceptors.request.use(
   }
 );
 
-
-
+import { Toast } from 'mint-ui';
 //响应拦截器即异常处理
 axios.interceptors.response.use(response => {
     return response
@@ -50,8 +59,13 @@ axios.interceptors.response.use(response => {
             console.log('错误请求')
           break;
         case 401:
+            Toast({
+              message: err.response.data.msg,
+              position: 'middle',
+              duration: 3000,
+            });
             console.log(err.response.data.msg)
-            // location.replace("http://localhost:8080/#/login") 
+            location.replace("http://localhost:8080/#/login") 
           break;
         case 403:
           console.log('拒绝访问')

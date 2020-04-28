@@ -1,10 +1,10 @@
 <template>
     <mt-tabbar v-model="select">
-        <mt-tab-item @click.native="jump('')" :id="1">
+        <!-- <mt-tab-item @click.native="jump('')" :id="1">
             <i slot="icon" class="fa fa-credit-card fa-lg" aria-hidden="true"></i>
             存钱罐
-        </mt-tab-item>
-        <mt-tab-item @click.native="jump('')" :id="2">
+        </mt-tab-item> -->
+        <mt-tab-item @click.native="jump('/incomechart')" :id="2">
             <i slot="icon" class="fa fa-pie-chart fa-lg" aria-hidden="true"></i>
             图表
         </mt-tab-item>
@@ -12,10 +12,10 @@
             <i slot="icon" class="fa fa-plus-circle fa-lg" aria-hidden="true"></i>
             记账
         </mt-tab-item>
-        <mt-tab-item @click.native="jump('')" :id="4">
+        <!-- <mt-tab-item @click.native="jump('')" :id="4">
             <i slot="icon" class="fa fa-university fa-lg"></i>
             社区
-        </mt-tab-item>
+        </mt-tab-item> -->
         <mt-tab-item @click.native="jump('/user')" :id="5">
             <i slot="icon"  class="fa fa-user-o fa-lg"></i>
             我的

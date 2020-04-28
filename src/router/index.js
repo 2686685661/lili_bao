@@ -45,6 +45,14 @@ let all_router = {
 		{
 			path: '/yearbill',
 			component: resolve => void(require(['@/view/user/yearbill'], resolve))
+		},
+		{
+			path: '/incomechart',
+			component: resolve => void(require(['@/view/chart/incomechart'], resolve))
+		},
+		{
+			path: '/expenditurechart',
+			component: resolve => void(require(['@/view/chart/expenditurechart'], resolve))
 		}
 
 	]

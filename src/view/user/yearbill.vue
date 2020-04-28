@@ -2,7 +2,7 @@
     <div id="year-bill">
         <mt-header fixed title="账单">
             <i slot="left" class="fa fa-arrow-left" aria-hidden="true" @click="$router.go(-1)"></i> 
-            <i slot="right" class="fa fa-search-minus" aria-hidden="true" @click="openPicker()">&nbsp;&nbsp;2020年</i>
+            <i slot="right" class="fa fa-search-minus" aria-hidden="true" @click="openPicker()">&nbsp;&nbsp;{{ this.year }}年</i>
         </mt-header>
 
         <div class="content">
@@ -31,12 +31,14 @@
                     <span>收入</span>
                     <span>支出</span>
                     <span>结余</span>
+                    <span>导出</span>
                 </div>
                 <div class="yearbill-context-row" v-for="(val, i) in this.yearBill.YearBillRange" :key="i">
-                    <span>{{ val.MonthDate }}月</span>
+                    <span>{{ val.month }}月</span>
                     <span>{{ val.MonthIncome }}</span>
                     <span>{{ val.MonthExpenditare }}</span>
                     <span>{{ val.Balance }}</span>
+                    <span @click="download(val.MonthDate)"><i class="fa fa-download" aria-hidden="true"></i> </span>
                 </div>
             </div>
 
@@ -55,6 +57,8 @@
 
 <script>
 import Vue from 'vue'
+import config from '../../config/config.js'
+import jwt from 'jsonwebtoken'
 import { DatetimePicker, Toast } from 'mint-ui';
 Vue.component(DatetimePicker.name, DatetimePicker);
 export default {
@@ -65,6 +69,13 @@ export default {
         }
     },
     methods: {
+        download(month) {
+            let token = this.getCookie('user_token')
+            let  jwt = require('jsonwebtoken')
+            let dedata =   jwt.decode(token)
+            let url = config.axiosConfig.baseurl + "/uploadbill?userId=" + dedata.id + "&month=" + month
+            window.location.href = url
+        },
         openPicker() {
             this.$refs.picker.open();
             let a = document.getElementsByClassName('picker-slot')
@@ -109,12 +120,12 @@ export default {
         },
         formatYearBill() {
             this.yearBill.YearBillRange.forEach((val) => {
-                val.MonthDate = val.MonthDate.toString().substring(4, 6)
+                val.month = val.MonthDate.toString().substring(4, 6)
+                // val.MonthDate = val.MonthDate.toString().substring(4, 6)
                 val.Balance = ((val.MonthIncome - val.MonthExpenditare) / 100).toFixed(2)
                 val.MonthIncome = (val.MonthIncome / 100).toFixed(2)
                 val.MonthExpenditare = (val.MonthExpenditare / 100).toFixed(2)
             })
-            console.log(this.yearBill)
         }
     },
     mounted () {

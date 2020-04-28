@@ -62,6 +62,9 @@
         >
         </mt-datetime-picker>
 
+        <div style="height: 90px;text-align: center;color:gray;margin-top:10px;">
+            <span>已经到底啦～～</span>
+        </div>
         <NavBottomDetailed class="nav-bottom"></NavBottomDetailed>
     </div>
 </template>
@@ -157,6 +160,7 @@ export default {
 
 <style scoped>
 .nav-bottom {
+    
     position: fixed;
 }
 #detailed {

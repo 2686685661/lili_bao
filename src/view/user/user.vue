@@ -13,7 +13,7 @@
         </div>
         <div class="user-daka">
             <div>已连续打卡：{{ usermsg.ClockinNum }}</div>
-            <div>记账总天数：{{ this.getTimeUntilNow(usermsg.RegisterTime) }}</div>
+            <div>记账总天数：{{ usermsg.RegisterTime }}</div>
             <div>记账总笔数：{{ usermsg.KeepNum }}</div>
         </div>
     </div>
@@ -24,7 +24,7 @@
                   <mt-button type="default" @click="wait()">零钱</mt-button>
               </div>
               <div>
-                   <mt-button type="default">账单导出</mt-button>
+                   <mt-button type="default" @click="$router.push({path: '/yearbill'})">账单导出</mt-button>
               </div>
           </div>
           <div class="user-option-zhangdan" @click="$router.push({path: '/yearbill'})">
@@ -59,11 +59,14 @@
               <mt-cell title="剩余预算" :value="(this.yusuanlable == 0) ? 0 : (this.yusuanlable - this.usermsg.Bill.MonthExpenditare) + ''"></mt-cell>
               <mt-cell title="本月支出" :value="this.usermsg.Bill.MonthExpenditare+''"></mt-cell>
               <mt-cell title="当前版本" value="V1.0.0"></mt-cell>
+              <mt-button type="danger" style="margin-top:30px;" size="large" @click="signout()">退出登陆</mt-button>
           </div>
-            
+           
       </div>
+     
     </div>
-    <div style="height: 100px"></div>
+    
+    <div style="height: 200px"></div>
     <NavBottom class="nav-bottom"></NavBottom>
 </div>
 
@@ -113,11 +116,12 @@ export default {
                     this.usermsg = res.data
                     this.setUserData()
                     this.$store.commit("changeUserStatus", {name:'userMsg',val: res.data})
+                    this.setCookie('RegisterTime', res.data.RegisterTime)
                 } else {
                     Toast({
                         message: "网络延迟，请稍后刷新",
                         position: 'middle',
-                        duration: 3000,
+                        duration: 1000,
                     });
                 }
             })
@@ -129,17 +133,17 @@ export default {
             let jieyu = Math.abs(income - monthExpenditare)
             let total = parseInt(income) + parseInt(monthExpenditare) + parseInt(jieyu)
             total = (total == 0) ? 1 : total
-            // console.log(total)
             for (let i = 0; i < this.data.length; i++) {
                 if (this.data[i].name == '收入') {
-                    this.data[i].percent = parseFloat((income / total).toFixed(2))
+                    this.data[i].percent = parseFloat((income / total).toFixed(2)) * 100
                 } else if (this.data[i].name == '支出') {
-                    this.data[i].percent = parseFloat((monthExpenditare / total).toFixed(2))
+                    this.data[i].percent = parseFloat((monthExpenditare / total).toFixed(2)) * 100
                 } else {
-                    this.data[i].percent = parseFloat((jieyu / total).toFixed(2))
+                    this.data[i].percent = parseFloat((jieyu / total).toFixed(2)) * 100
                 }
             }
         },
+
         pluckClock() {
             this.fetch('/api/user/punchclock').then((res) => {
                 if (res.error_code == 0) {
@@ -180,6 +184,12 @@ export default {
                     })
                 }
             });
+        },
+        signout() {
+            this.clearCookie("user_token")
+            this.$router.push({
+                path: "/login"
+            })
         }
     },
     mounted () {

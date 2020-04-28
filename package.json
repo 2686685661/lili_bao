@@ -10,6 +10,8 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@antv/f2": "^3.6.4-beta.1",
+    "@antv/g2plot": "^1.0.4",
     "mint-ui": "^2.2.13",
     "oview": "^1.1.8",
     "vue": "^2.5.2",
