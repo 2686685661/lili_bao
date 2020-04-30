@@ -31,8 +31,20 @@ let all_router = {
 			component: resolve => void(require(['@/view/user/user'], resolve))
 		},
 		{
+			path: '/usermsg',
+			component: resolve => void(require(['@/view/user/userMsg'], resolve))
+		},
+		{
 			path: '/detailed',
 			component: resolve => void(require(['@/view/detailed/detailed'], resolve))
+		},
+		{
+			path: '/sigledetailed',
+			component: resolve => void(require(['@/view/detailed/sigleDetailed'], resolve))
+		},
+		{
+			path: '/updatesigle',
+			component: resolve => void(require(['@/view/detailed/updateSigle'], resolve))
 		},
 		{
 			path: '/recordbill',

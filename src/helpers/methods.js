@@ -97,6 +97,16 @@ const methods = {
         return str
     },
 
+    dayStrReachYearTime(daystr) {
+        let year = parseInt(daystr.substring(0, 4))
+        let month  = parseInt(daystr.substring(4, 6)) - 1
+        let day = parseInt(daystr.substring(6, 8))
+        let weekarr = ["日", "一", "二", "三", "四", "五", "六"];
+        let temp = new Date(year, month, day, 0, 0, 0)
+        let str = temp.getFullYear() + "年" + methods.doHandleMonth(temp) + "月" + methods.daHandleDays(temp) + "日" + "  星期" + weekarr[temp.getDay()]
+        return str
+    },
+
     //四舍五入保留2位小数（不够位数，则用0替补）
     keepTwoDecimalFull: (num) => {
         var result = parseFloat(num);

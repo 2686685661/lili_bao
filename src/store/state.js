@@ -3,5 +3,8 @@ export const state = {
         token: "",
         pluckColck: false,
         userMsg: {}
+    },
+    detailed: {
+        selectionSigle: {}
     }
 }

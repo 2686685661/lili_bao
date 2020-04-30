@@ -31,7 +31,7 @@
                         <div>{{ val.DayNumber }}</div>
                         <div>收入：{{ val.DayIncome }}&nbsp;&nbsp;支出：{{ val.DayExpenditure }}</div>
                     </div>
-                    <mt-cell :title="val2.DetailedType" v-for="(val2, i2) in val.SigleDetailedArr" :key="i2">
+                    <mt-cell :title="val2.DetailedType" v-for="(val2, i2) in val.SigleDetailedArr" :key="i2" @click.native="setordelDetailed(val2)">
                         <span v-if="val2.BudgetType == 1">{{ val2.DetailedMoney }}</span>
                         <span v-else>-{{ val2.DetailedMoney }}</span>
                         <i slot="icon" :class="val2.className" aria-hidden="true"></i> 
@@ -52,6 +52,7 @@
         </div>
 
         <mt-datetime-picker
+            v-model="mytime"
             type="date"
             ref="picker"
             year-format="{value} 年"
@@ -77,6 +78,7 @@ Vue.component(DatetimePicker.name, DatetimePicker);
 export default {
     data() {
         return {
+            mytime: new Date(),
             month:"",
             detailData:{},
             year: "",
@@ -85,6 +87,10 @@ export default {
         }
     },
     methods: {
+        setordelDetailed(sigle) {
+            this.$store.commit("changeDetailedStatus", {name:'selectionSigle',val:sigle})
+            this.$router.push({path: '/sigledetailed'})
+        }, 
         openPicker() {
             this.$refs.picker.open();
             let a = document.getElementsByClassName('picker-slot')
@@ -128,14 +134,14 @@ export default {
                     val2.DetailedMoney = val2.DetailedMoney / 100
                     if (val2.BudgetType == 1) {
                         this.billType.income.forEach((v) => {
-                            if (v.detailedType == val2.BudgetType) {
+                            if (v.detailedType == val2.DetailedType) {
                                 val2.DetailedType = v.name
                                 val2.className = v.className
                             }
                         })
                     } else if (val2.BudgetType == 2) {
                         this.billType.expenditure.forEach((v) => {
-                            if (v.detailedType == val2.BudgetType) {
+                            if (v.detailedType == val2.DetailedType) {
                                 val2.DetailedType = v.name
                                 val2.className = v.className
                             }

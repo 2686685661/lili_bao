@@ -15,7 +15,7 @@
         </div>
 
         <mt-datetime-picker
-            v-model="birthday"
+            v-model="mytime"
             type="date"
             ref="picker"
             year-format="{value} 年"
@@ -36,6 +36,7 @@ Vue.component(DatetimePicker.name, DatetimePicker);
 export default {
     data() {
         return {
+            mytime: new Date(),
             number: null,
             birthday:'',
             introduction:'',

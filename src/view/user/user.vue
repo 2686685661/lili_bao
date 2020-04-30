@@ -4,7 +4,7 @@
     <div class="content">
     <div class="head">
         <div class="user-head">
-            <div class="user-img" style="order:1"></div>
+            <div class="user-img" style="order:1" @click="$router.push({path: '/usermsg'})"></div>
             <diV class="user-name" style="order:1">{{ usermsg.NickName }}</diV>
             <div class="right-arrow" style="order:2">
                 <mt-button size="normal" @click="pluckClock()" v-if="this.$store.state.user['pluckColck'] == false">每日打卡</mt-button>
@@ -56,7 +56,7 @@
               <mt-cell title="本月预算" :label="this.yusuanlable+''">
                   <mt-button type="primary" size="small" @click="setYusuan()">设置预算</mt-button>
               </mt-cell>
-              <mt-cell title="剩余预算" :value="(this.yusuanlable == 0) ? 0 : (this.yusuanlable - this.usermsg.Bill.MonthExpenditare) + ''"></mt-cell>
+              <mt-cell title="剩余预算" :value="(this.yusuanlable == 0) ? 0 : (this.yusuanlable - this.usermsg.Bill.MonthExpenditare).toFixed(2) + ''"></mt-cell>
               <mt-cell title="本月支出" :value="this.usermsg.Bill.MonthExpenditare+''"></mt-cell>
               <mt-cell title="当前版本" value="V1.0.0"></mt-cell>
               <mt-button type="danger" style="margin-top:30px;" size="large" @click="signout()">退出登陆</mt-button>
