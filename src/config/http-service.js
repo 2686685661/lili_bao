@@ -9,7 +9,9 @@ axios.defaults.xsrfCookieName = null
 axios.defaults.xsrfHeaderName = null
 axios.defaults.baseURL = config.axiosConfig.baseurl; //填写域名
 
-
+const upload_uri = [
+  '/api/user/upload',
+]
 // import Qs from 'qs'
 const Qs = require('qs');
 //引入序列化工具
@@ -17,11 +19,14 @@ const Qs = require('qs');
 //http request 拦截器
 axios.interceptors.request.use(
   config => {
-    config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
-    if(config.method === 'post') {
+    
+    if(config.method === 'post' && !upload_uri.includes(config.url)) {
+      config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
       config.data = Qs.stringify({
         ...config.data
       })
+    } else if (config.method === 'post' && upload_uri.includes(config.url)) {
+        config.headers['Content-Type'] = 'multipart/form-data'
     }
     
     let url = methods.ltrim(config.url, '/')
@@ -138,9 +143,9 @@ export function fetch(url, params={}){
  * @returns {Promise}
  */
 
- export function post(url,data = {}){
+ export function post(url,data = {}, config = {}){
    return new Promise((resolve,reject) => {
-     axios.post(url,data)
+     axios.post(url, data, config)
           .then(response => {
             resolve(response.data);
           },err => {

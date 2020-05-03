@@ -2,7 +2,7 @@
     <div id=recordbill-msg>
         <mt-header fixed :title="this.detailedName">
             <mt-button slot="left" @click="$router.push({path:'/recordbill'})">取消</mt-button>
-            <mt-button slot="right" @click="bookkeep()">完成</mt-button>
+            <mt-button slot="right" @click.native="bookkeep()">完成</mt-button>
         </mt-header>
 
         <div class="content">
@@ -61,7 +61,51 @@ export default {
         },
         bookkeep() {
             this.number = this.keepTwoDecimalFull(this.number)
-            if (this.number != false && this.budgetType != null && this.detailedType != null && this.date != '') {
+            if (this.number == false) {
+                Toast({
+                    message: '请填写金额哦～',
+                    position: 'middle',
+                    duration: 3000
+                });
+                return;
+            }
+            if (this.budgetType == null || 
+                this.budgetType == "" || 
+                this.budgetType == undefined || 
+                parseInt(this.budgetType) < 1 || 
+                parseInt(this.budgetType) > 2
+            ) {
+                Toast({
+                    message: '请选择支出类型哦～',
+                    position: 'middle',
+                    duration: 3000
+                });
+                return;
+            }
+
+            if (this.detailedType == null || 
+                this.detailedType == "" || 
+                this.detailedType == undefined || 
+                (parseInt(this.budgetType) == 1 && (parseInt(this.detailedType) < 1 || parseInt(this.detailedType) > billType.income.length)) || 
+                (parseInt(this.budgetType) == 2 && (parseInt(this.detailedType) < 1 || parseInt(this.detailedType) > billType.expenditure.length))
+            ) {
+                Toast({
+                    message: '请选择明细类型哦～',
+                    position: 'middle',
+                    duration: 3000
+                });
+                return;
+            }
+
+            if (this.date == '') {
+                Toast({
+                    message: '请选择记账日期哦～',
+                    position: 'middle',
+                    duration: 3000
+                });
+                return;
+            }
+
                 this.post('/api/detailed/bookkeep', {
                     date: this.date,
                     budgetType: this.budgetType,
@@ -86,13 +130,6 @@ export default {
                         });
                     }
                 })
-            } else {
-                Toast({
-                    message: '信息填写不完善',
-                    position: 'middle',
-                    duration: 3000
-                });
-            }
 
         }
     },

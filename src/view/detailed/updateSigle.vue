@@ -264,13 +264,20 @@ export default {
                 })
             }
             return detailedtype
+        },
+        setMyTime(daystr) {
+            let year = parseInt(daystr.substring(0, 4))
+            let month  = parseInt(daystr.substring(4, 6)) - 1
+            let day = parseInt(daystr.substring(6, 8))
+            this.mytime = new Date(year, month, day, 0, 0, 0)
         }
     },
     mounted () {
         this.sigle = this.$store.state.detailed['selectionSigle']
+        console.log(this.sigle)
+        this.setMyTime(this.sigle.SigleDate.toString())
         this.formatSigle()
         this.setPickerStyle()
-        console.log(this.sigle)
     }
 
 }

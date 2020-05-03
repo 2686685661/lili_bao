@@ -4,7 +4,7 @@
     <div class="content">
     <div class="head">
         <div class="user-head">
-            <div class="user-img" style="order:1" @click="$router.push({path: '/usermsg'})"></div>
+            <div class="user-img" :style="{backgroundImage:'url(' + (headUrl == '' ? defaultHead : headUrl) + ')'}" style="order:1" @click="$router.push({path: '/usermsg'})"></div>
             <diV class="user-name" style="order:1">{{ usermsg.NickName }}</diV>
             <div class="right-arrow" style="order:2">
                 <mt-button size="normal" @click="pluckClock()" v-if="this.$store.state.user['pluckColck'] == false">每日打卡</mt-button>
@@ -32,7 +32,7 @@
                   <div>账单</div>
                   <div>{{ this.doHandleMonth((new Date())) }}月</div>
               </div>
-              <sapn style="float:left;width: 1px;height: 25px; background: #000;"></sapn> 
+              <span style="float:left;width: 1px;height: 25px; background: #000;"></span> 
               <div class="user-zhangdan-right">
                   <div>
                         <div>收入</div>
@@ -52,6 +52,7 @@
         <o-chart :data="data" :legend="legend">
             <o-pie position="name*percent"></o-pie>
         </o-chart>
+
           <div class="user-option-yusuan">
               <mt-cell title="本月预算" :label="this.yusuanlable+''">
                   <mt-button type="primary" size="small" @click="setYusuan()">设置预算</mt-button>
@@ -66,8 +67,10 @@
      
     </div>
     
+    <div id="container"></div>
     <div style="height: 200px"></div>
-    <NavBottom class="nav-bottom"></NavBottom>
+    <nav-bottom class="nav-bottom"></nav-bottom>
+
 </div>
 
 </template>
@@ -78,7 +81,8 @@ export default {
     data() {
         return {
             test: "fuck",
-            defaultUserHead: '../../assets/img/default_head.jpg',
+            headUrl: '',
+            defaultHead: require('../../assets/img/default_head.jpg'),
             usermsg: {},
             yusuanlable: 0,
             legend: {
@@ -114,6 +118,7 @@ export default {
             this.fetch("/api/user/getuseranymsg").then((res) => {
                 if(res.error_code == 0) {
                     this.usermsg = res.data
+                    this.headUrl = res.data.HeadPortait
                     this.setUserData()
                     this.$store.commit("changeUserStatus", {name:'userMsg',val: res.data})
                     this.setCookie('RegisterTime', res.data.RegisterTime)
@@ -128,7 +133,7 @@ export default {
         },
         setUserData() {
             this.yusuanlable = this.usermsg.Bill.MonthBudget
-            let income = this.usermsg.Bill.MonthIncome
+            let income = this.usermsg.Bill.MonthIncome;
             let monthExpenditare = this.usermsg.Bill.MonthExpenditare
             let jieyu = Math.abs(income - monthExpenditare)
             let total = parseInt(income) + parseInt(monthExpenditare) + parseInt(jieyu)
@@ -164,6 +169,16 @@ export default {
                 inputValue: monthBudget+''
             }).then(({ value, action }) => {
                 if (action == 'confirm') {
+                    let reg = /^[+]{0,1}(\d+)$|^[+]{0,1}(\d+\.\d+)$/;
+                    if (!reg.test(value)) {
+                        Toast({
+                            message: "预算是非负数字",
+                            position: 'middle',
+                            duration: 3000,
+                        });
+                        return
+                    }
+                    value = this.keepTwoDecimalFull(value)
                     this.post('/api/user/setbudget', {
                         budget: parseFloat(value)
                     }).then((res) => {
@@ -232,7 +247,7 @@ export default {
   }
  
   .user-img {
-    background-image: url("../../assets/img/default_head.jpg"); /**默认头像，先不搞用户信息修改 */
+    /* background-image: url("../../assets/img/default_head.jpg"); *默认头像，先不搞用户信息修改 */
     width: 60px;
     height: 60px;
     border-radius: 30px;
@@ -245,9 +260,6 @@ export default {
 	background-size: cover;
   }
  
-  .user-option {
-    /* background-color: #dbdbdb; */
-  }
   .user-option-tubiao {
       width: 95%;
       height: 60px;

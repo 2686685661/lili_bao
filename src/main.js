@@ -8,7 +8,6 @@ import store from './store'
 
 import 'normalize.css'
 
-
 Vue.use(Vuex)
 
 //import vue-cookie
@@ -56,6 +55,11 @@ import service from './config/http-service'
 Object.keys(service).forEach((key)=>{
   Vue.prototype[key]=service[key];
 })
+
+//暴力禁用alert
+window.alert = function() {
+  return false;
+}
 
 
 Vue.config.productionTip = false

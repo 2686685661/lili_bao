@@ -17,7 +17,7 @@
                         <span>收入</span>
                         <span>{{ this.yearBill.YearIncome }}</span>
                     </div>
-                    <sapn style="float:left;width: 1px;height: 20px; background: #000;"></sapn>
+                    <span style="float:left;width: 1px;height: 20px; background: #000;"></span>
                     <div class="head-budget-right">
                         <span>支出</span>
                         <span>{{ this.yearBill.YearExpenditure }}</span>

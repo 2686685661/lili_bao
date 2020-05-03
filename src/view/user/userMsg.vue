@@ -8,10 +8,12 @@
             <div class="userhead" @click="onPickFile()">
                 <span class="userhead-font" style="margin-left:10px;">头像</span>
                 <span class="userhead-font userhead-span-margin">
-                    <img class="userhead-img" :src="defaultHead" alt="">
+                    <img class="userhead-img" :src="headUrl == '' ? defaultHead : headUrl" alt="">
                     <i class="fa fa-chevron-right" aria-hidden="true"></i>
                 </span>
             </div>
+
+            <!-- <cropper :headerImage="headerImage"  @getHeaderImage="newHeaderImage"></cropper>　 -->
             
             <mt-cell title="昵称" is-link @click.native="updateNickName()">
                 <span style="color: green">{{ this.username }}</span>
@@ -38,16 +40,19 @@
             </mt-picker>
         </mt-popup>
 
-        <input type="file" ref="fileInput" style="display: none">
+        <input type="file" accept="image/*" @change="handleFile" ref="fileInput" style="display: none">
     </div>
 </template>
 
 <script>
 import { Toast,MessageBox } from 'mint-ui';
+import Exif from 'exif-js';
 export default {
     data() {
         return {
+            headerImage: '',
             user: {},
+            headUrl: '',
             defaultHead: require('../../assets/img/default_head.jpg'),
             username: "",
             sex: 0,
@@ -76,16 +81,62 @@ export default {
         }
     },
     methods: {
-        onPickFile() {
-            Toast({
-                message: "期待下一版本～",
-                position: 'middle',
-                duration: 3000,
-            }) 
-            // console.log('fuck')
-            // this.$refs.fileInput.click()
+        newHeaderImage(newImg){
+            this.headerImage = newImg;
         },
+        onPickFile() {
+            // Toast({
+            //     message: "期待下一版本～",
+            //     position: 'middle',
+            //     duration: 3000,
+            // }) 
+            // console.log('fuck')
+            this.$refs.fileInput.click()
+        },
+        handleFile(e) {
+            let files = e.target.files || e.dataTransfer.files || e.target || e.srcElementb;  
+            if (!files.length) return;  
+            let picValue = files[0];
+            var testmsg=picValue.name.substring(picValue.name.lastIndexOf('.')+1)   
+            const extension = testmsg === 'jpg'
+            const extension2 = testmsg === 'png'
+            const isLt2M = picValue.size / 1024 / 1024 < 10  
+            if(!extension && !extension2) {
+                Toast({
+                    message: "上传文件只能是 jpg、png格式!",
+                    position: 'middle',
+                    duration: 3000,
+                })
+            }
+            if(!isLt2M) {
+                Toast({
+                    message: "上传文件大小不能超过 10MB!",
+                    position: 'middle',
+                    duration: 3000,
+                })
+            }
+            if (extension || extension2 && isLt2M) {
+                this.postImg(picValue)
+            }
+
+        },
+        postImg(file) {
+            let param = new FormData(); //创建form对象
+            param.append('file', file, file.name);//通过append向form对象添加数据
+            this.post("/api/user/upload", param).then((res) => {
+                if (res.error_code == 0) {
+                    this.headUrl = res.data
+                    Toast({
+                        message: "头像修改成功",
+                        position: 'middle',
+                        duration: 3000,
+                    })
+                }
+            })
+        },
+
         initUserData() {
+            this.headUrl = this.user.HeadPortait
             this.username = this.user.NickName
             this.sex = this.user.Sex
             this.phone = this.user.Phone + ''

@@ -11,11 +11,11 @@
                             <i class="fa fa-share-square-o" aria-hidden="true"></i>
                         </div>
                     </div>
-                    <sapn style="float:left;width: 1px;height: 25px; background: #000;"></sapn>
+                    <span style="float:left;width: 1px;height: 25px; background: #000;"></span>
                     <div class="detailed-head-right">
                         <div class="detailed-head-right-income">
                             <span style="font-size:15px;display:block;">收入</span>
-                            <span style="font-si    ze:19px;">{{ this.detailData.MonthIncome }}</span>
+                            <span style="font-size:19px;">{{ this.detailData.MonthIncome }}</span>
                         </div>
                         <div class="detailed-head-right-expenditare">
                             <span style="font-size:15px;display:block;">支出</span>
@@ -37,17 +37,6 @@
                         <i slot="icon" :class="val2.className" aria-hidden="true"></i> 
                     </mt-cell>
                 </div>
-
-                <!-- <div style="width:100%">
-                    <div class="detailed-record-date">
-                        <div>02月8日 星期六</div>
-                        <div>收入：0&nbsp;&nbsp;支出：200</div>
-                    </div>
-                    <mt-cell title="兼职">
-                        <span>-200</span>
-                        <i slot="icon" class="fa fa-share-square-o fa-lg" aria-hidden="true"></i> 
-                    </mt-cell>
-                </div> -->
             </div>
         </div>
 
@@ -66,7 +55,7 @@
         <div style="height: 90px;text-align: center;color:gray;margin-top:10px;">
             <span>已经到底啦～～</span>
         </div>
-        <NavBottomDetailed class="nav-bottom"></NavBottomDetailed>
+        <nav-bottom-detailed class="nav-bottom"></nav-bottom-detailed>
     </div>
 </template>
 
@@ -124,6 +113,9 @@ export default {
             })
         },
         formatUserMonthDetailed() {
+            if (this.detailData.MonthDetailed == null || this.detailData.MonthDetailed ==undefined) {
+                return
+            }
             let _this = this
             this.detailData.MonthDetailed.sort((x, y) => {
                 return x.DayNumber - y.DayNumber
