@@ -58,12 +58,7 @@ export default {
                 phone: this.phone,
             }).then((res) => {
                 if (res.error_code == 0) {
-                    this.$router.push({
-                        path: '/registersms',
-                        query: {
-                            phone: this.phone
-                        }
-                    })
+
                 } else {
                     Toast({
                         message: '网络开小差啦～短信发送失败',
@@ -71,6 +66,12 @@ export default {
                         duration: 3000,
                     });              
                 }
+                this.$router.push({
+                    path: '/registersms',
+                    query: {
+                        phone: this.phone
+                    }
+                })
             })
         }
     },
