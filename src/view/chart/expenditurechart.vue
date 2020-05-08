@@ -144,6 +144,8 @@ export default {
             this.initBar(data)
         },
         StatisticsTotal(data) {
+            this.total = 0.00
+            this.average = 0.00 
             if (data != null) {
                 let num = data.length || 1
                 for (let i = 0; i < num; i++) {
