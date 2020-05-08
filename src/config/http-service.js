@@ -70,7 +70,7 @@ axios.interceptors.response.use(response => {
               duration: 3000,
             });
             console.log(err.response.data.msg)
-            location.replace("http://localhost:8080/#/login") 
+            location.replace("http://118.178.180.31:8080/#/login") 
           break;
         case 403:
           console.log('拒绝访问')
